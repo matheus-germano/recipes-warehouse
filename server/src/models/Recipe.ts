@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { User } from './User';
 
 @Entity()
 export class Recipe {
@@ -7,6 +8,10 @@ export class Recipe {
 
 	@Column('uuid')
 	creatorId: string;
+
+	@ManyToOne(() => User, { onDelete: 'CASCADE' })
+	@JoinColumn({ name: 'creatorId' })
+	creator: User;
 
 	@Column('varchar')
 	name: string;
@@ -17,10 +22,10 @@ export class Recipe {
 	@Column('text')
 	preparationMethod: string;
 
-	@Column('datetime')
+	@Column('int')
 	preparationTime: number;
 
-	@Column('double')
+	@Column('decimal')
 	servings: number;
 
 	@Column('date')
