@@ -6,7 +6,7 @@ const userRouter = Router()
 
 const userController = UserControllerFactory.generate()
 
-userRouter.post('/users/sign-up', userController.signUp)
-userRouter.post('/users/sign-in', userController.signIn)
+userRouter.post('/users/sign-up', async (req, res) => await userController.signUp(req, res))
+userRouter.post('/users/sign-in', async (req, res) => await userController.signIn(req, res))
 
 export { userRouter }
