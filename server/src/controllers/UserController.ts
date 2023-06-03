@@ -2,19 +2,20 @@ import { type Request, type Response } from 'express'
 import { config } from '../../ormconfig'
 import { User } from '../models/User'
 import { type ISignIn } from '../@types/signIn'
-import bcrypt from 'bcrypt'
-import jwt from 'jsonwebtoken'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { config as env } from 'dotenv'
-
-const saltRounds = 8
+import { type ICryptoAdapter } from '../protocols/ICryptoAdapter'
+import { type IAuthAdapter } from '../protocols/IAuthAdapter'
 
 const usersRepository = config.getRepository(User)
 
-class UserController {
+export class UserController {
+  constructor (
+    private readonly cryptoAdapter: ICryptoAdapter,
+    private readonly authAdapter: IAuthAdapter
+  ) {}
+
   async signUp (req: Request<unknown, unknown, User>, res: Response): Promise<Response> {
     const { id, name, email, password, phoneNumber, profileAvatar } = req.body
-    const encryptedPassword = await bcrypt.hash(password, saltRounds)
+    const encryptedPassword = await this.cryptoAdapter.encrypt(password)
 
     const userAlreadyExists = await usersRepository.findOne({ where: { email } })
 
@@ -37,18 +38,14 @@ class UserController {
       return res.status(404).json({ error: 'User with this e-mail or password not found' })
     }
 
-    const passwordsMatch = bcrypt.compareSync(password, userExists.password)
+    const passwordsMatch = this.cryptoAdapter.compare(password, userExists.password)
 
     if (!passwordsMatch) {
       return res.status(404).json({ error: 'User with this e-mail or password not found' })
     }
 
-    const token = jwt.sign({ id: userExists.id?.toString(), name: userExists.name }, String(process.env.JWT_SECRET), {
-      expiresIn: '2 days'
-    })
+    const token = this.authAdapter.generateToken(userExists.id, userExists.name, '2 days')
 
     return res.status(200).json({ result: { token } })
   }
 }
-
-export { UserController }
