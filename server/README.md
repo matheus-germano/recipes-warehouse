@@ -6,18 +6,18 @@
   - name;
   - email;
   - password;
-  - phone_number;
-  - profile_avatar;
+  - phoneNumber;
+  - profileAvatar;
 
 - #### Recipe
   - id;
-  - creator_id;
+  - creatorId;
   - name;
   - description;
-  - preparation_method;
-  - preparation_time;
+  - preparationMethod;
+  - preparationTime;
   - servings;
-  - created_at;
+  - createdAt;
 
 - #### Ingredient
   - id;
