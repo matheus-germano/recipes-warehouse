@@ -1,6 +1,7 @@
-import "reflect-metadata";
-import { DataSource } from 'typeorm';
-require('dotenv').config();
+import 'reflect-metadata'
+import { DataSource } from 'typeorm'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+require('dotenv').config()
 
 export const config = new DataSource({
   type: 'postgres',
@@ -12,5 +13,5 @@ export const config = new DataSource({
   entities: ['src/models/**/*.ts'],
   migrations: ['src/migrations/**/*.ts'],
   subscribers: ['src/subscribers/**/*.ts'],
-  synchronize: true, // Set to false for production
-});
+  synchronize: true // Set to false for production
+})
