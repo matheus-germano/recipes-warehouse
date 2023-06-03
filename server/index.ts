@@ -2,7 +2,7 @@ import 'reflect-metadata'
 import express, { json } from 'express'
 import cors from 'cors'
 import { config } from './ormconfig'
-import { routes } from './src/routes'
+import { routes } from './src/routes/routes'
 
 const app = express()
 app.use(json())
