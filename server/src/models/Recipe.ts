@@ -1,33 +1,33 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { User } from './User';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { User } from './User'
 
 @Entity()
 export class Recipe {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string
 
   @Column('uuid')
-  creator_id: string;
+    creatorId: string
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'creator_id' })
-  creator: User;
+  @JoinColumn({ name: 'creatorId' })
+    creator: User
 
   @Column('varchar')
-  name: string;
+    name: string
 
   @Column('varchar')
-  description: string;
+    description: string
 
   @Column('text')
-  preparation_method: string;
+    preparationMethod: string
 
   @Column('int')
-  preparation_time: number;
+    preparationTime: number
 
   @Column('decimal')
-  servings: number;
+    servings: number
 
   @Column('date')
-  created_at: Date;
+    createdAt: Date
 }

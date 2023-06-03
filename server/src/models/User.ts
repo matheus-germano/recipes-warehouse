@@ -1,22 +1,22 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+    id: string
 
   @Column('varchar')
-  name: string;
+    name: string
 
   @Column('varchar', { unique: true })
-  email: string;
+    email: string
 
   @Column('varchar')
-  password: string;
+    password: string
 
-  @Column('varchar')
-  phone_number: string;
+  @Column('varchar', { nullable: true })
+    phoneNumber: string
 
   @Column('text', { nullable: true })
-  profile_avatar: string;
+    profileAvatar: string
 }
