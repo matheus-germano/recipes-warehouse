@@ -1,6 +1,6 @@
 import { UserController } from '../controllers/UserController'
-import { AuthAdapterFactory } from './AuthAdapterFactory'
-import { CryptoAdapterFactory } from './CryptoAdapterFactory'
+import { SignInUseCaseFactory } from './SignInUseCaseFactory'
+import { SignUpUseCaseFactory } from './SignUpUseCaseFactory'
 
 export class UserControllerFactory {
   private static _instance: UserController | null = null
@@ -9,10 +9,10 @@ export class UserControllerFactory {
     if (this._instance !== null) {
       return this._instance
     } else {
-      const cryptoAdapter = CryptoAdapterFactory.generate()
-      const authAdapter = AuthAdapterFactory.generate()
+      const signUpUseCase = SignUpUseCaseFactory.generate()
+      const signInUseCase = SignInUseCaseFactory.generate()
 
-      this._instance = new UserController(cryptoAdapter, authAdapter)
+      this._instance = new UserController(signUpUseCase, signInUseCase)
       return this._instance
     }
   }
