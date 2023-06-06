@@ -1,28 +1,33 @@
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { Request, Response } from 'express'
-import { config } from '../../ormconfig'
-import { Recipe } from '../models/Recipe'
+import { type FindAllRecipesUseCase } from '../useCases/recipe/FindAllRecipesUseCase'
+import { type FindRecipeByIdUseCase } from '../useCases/recipe/FindRecipeByIdUseCase'
 
-const recipesRepository = config.getRepository(Recipe)
+export class RecipeController {
+  constructor (
+    private readonly findAllRecipesUseCase: FindAllRecipesUseCase,
+    private readonly findRecipeByIdUseCase: FindRecipeByIdUseCase
+  ) {}
 
-class RecipeController {
   async findAll (req: Request, res: Response): Promise<Response> {
-    const recipes = await recipesRepository.find()
+    try {
+      const recipes = await this.findAllRecipesUseCase.execute()
 
-    return res.status(200).json(recipes)
+      return res.status(200).json(recipes)
+    } catch {
+      return res.status(500).json({ error: 'Internal server error' })
+    }
   }
 
   async findById (req: Request, res: Response): Promise<Response> {
     const { id } = req.params
 
-    const recipe = await recipesRepository.findOne({ where: { id } })
+    try {
+      const recipe = await this.findRecipeByIdUseCase.execute(id)
 
-    if (recipe === null) {
-      return res.status(400).json({ error: 'There is no recipe with this id' })
+      return res.status(200).json(recipe)
+    } catch {
+      return res.status(500).json({ error: 'Internal server error' })
     }
-
-    return res.status(200).json(recipe)
   }
 }
-
-export { RecipeController }

@@ -1,6 +1,6 @@
-import { config } from '../../ormconfig'
-import { User } from '../models/User'
-import { type ICryptoAdapter } from '../protocols/ICryptoAdapter'
+import { config } from '../../../ormconfig'
+import { User } from '../../models/User'
+import { type ICryptoAdapter } from '../../protocols/ICryptoAdapter'
 
 export class SignUpUseCase {
   constructor (

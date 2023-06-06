@@ -1,7 +1,7 @@
-import { config } from '../../ormconfig'
-import { User } from '../models/User'
-import { type IAuthAdapter } from '../protocols/IAuthAdapter'
-import { type ICryptoAdapter } from '../protocols/ICryptoAdapter'
+import { config } from '../../../ormconfig'
+import { User } from '../../models/User'
+import { type IAuthAdapter } from '../../protocols/IAuthAdapter'
+import { type ICryptoAdapter } from '../../protocols/ICryptoAdapter'
 
 export class SignInUseCase {
   constructor (

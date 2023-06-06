@@ -1,4 +1,4 @@
-import { SignUpUseCase } from '../useCases/SignUpUseCase'
+import { SignUpUseCase } from '../useCases/user/SignUpUseCase'
 import { CryptoAdapterFactory } from './CryptoAdapterFactory'
 
 export class SignUpUseCaseFactory {

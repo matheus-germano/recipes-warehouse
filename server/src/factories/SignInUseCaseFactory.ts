@@ -1,4 +1,4 @@
-import { SignInUseCase } from '../useCases/SignInUseCase'
+import { SignInUseCase } from '../useCases/user/SignInUseCase'
 import { AuthAdapterFactory } from './AuthAdapterFactory'
 import { CryptoAdapterFactory } from './CryptoAdapterFactory'
 

@@ -1,8 +1,8 @@
 import { type Request, type Response } from 'express'
 import { type User } from '../models/User'
 import { type ISignIn } from '../@types/signIn'
-import { type SignUpUseCase } from '../useCases/SignUpUseCase'
-import { type SignInUseCase } from '../useCases/SignInUseCase'
+import { type SignUpUseCase } from '../useCases/user/SignUpUseCase'
+import { type SignInUseCase } from '../useCases/user/SignInUseCase'
 
 export class UserController {
   constructor (
