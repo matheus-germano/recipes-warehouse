@@ -1,13 +1,18 @@
 import { type NextFunction, type Request, type Response } from 'express'
-import jwt, { type JwtPayload } from 'jsonwebtoken'
+import { type JwtPayload } from 'jsonwebtoken'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { config } from 'dotenv'
+import { type AuthAdapter } from '../adapters/AuthAdapter'
 
 export interface CustomRequest extends Request {
   token: string | JwtPayload
 }
 
-class Authentication {
+export class Authentication {
+  constructor (
+    private readonly authAdapter: AuthAdapter
+  ) { }
+
   isAuthenticated (req: Request, res: Response, next: NextFunction) {
     try {
       const token = req.header('Authorization')?.replace('Bearer ', '')
@@ -16,7 +21,7 @@ class Authentication {
         throw new Error()
       }
 
-      const decoded = jwt.verify(token, String(process.env.JWT_SECRET));
+      const decoded = this.authAdapter.decodeToken(token);
       (req as CustomRequest).token = decoded
 
       next()
@@ -25,5 +30,3 @@ class Authentication {
     }
   }
 }
-
-export { Authentication }
