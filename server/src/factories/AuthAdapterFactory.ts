@@ -1,6 +1,7 @@
 import { AuthAdapter } from '../adapters/AuthAdapter'
+import { Factory } from './Factory'
 
-export class AuthAdapterFactory {
+export class AuthAdapterFactory extends Factory {
   private static _instance: AuthAdapter | null = null
 
   public static generate () {
