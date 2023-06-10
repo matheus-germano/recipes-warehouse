@@ -8,13 +8,13 @@ export class UserController {
   constructor (
     private readonly signUpUseCase: SignUpUseCase,
     private readonly signInUseCase: SignInUseCase
-  ) {}
+  ) { }
 
   async signUp (req: Request<unknown, unknown, User>, res: Response): Promise<Response> {
-    const { id, name, email, password, phoneNumber, profileAvatar } = req.body
-    const user = { id, name, email, password, phoneNumber, profileAvatar }
-
     try {
+      const { id, name, email, password, phoneNumber, profileAvatar } = req.body
+      const user: User = { id, name, email, password, phoneNumber, profileAvatar }
+
       await this.signUpUseCase.execute(user)
       return res.status(200).json({ result: 'User created successfully' })
     } catch {
