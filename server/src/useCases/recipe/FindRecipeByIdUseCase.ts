@@ -1,10 +1,11 @@
 import { config } from '../../../ormconfig'
 import { Recipe } from '../../models/Recipe'
+import { type IUseCase } from '../../protocols/IUseCase'
 
-export class FindRecipeByIdUseCase {
+export class FindRecipeByIdUseCase implements IUseCase {
   constructor (
     private readonly recipesRepository = config.getRepository(Recipe)
-  ) {}
+  ) { }
 
   async execute (id: string): Promise<Recipe> {
     const recipe = await this.recipesRepository.findOne({ where: { id } })
