@@ -1,20 +1,15 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
 import { User } from './User'
+import { Base } from './Base'
 
 @Entity()
-export class Recipe {
-  @PrimaryGeneratedColumn('uuid')
-    id: string
-
+export class Recipe extends Base {
   @Column('uuid')
     creatorId: string
 
   @ManyToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'creatorId' })
     creator: User
-
-  @Column('varchar')
-    name: string
 
   @Column('varchar')
     description: string

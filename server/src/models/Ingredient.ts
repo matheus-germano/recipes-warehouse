@@ -1,10 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity } from 'typeorm'
+import { Base } from './Base'
 
 @Entity()
-export class Ingredient {
-  @PrimaryGeneratedColumn('uuid')
-    id: string
-
-  @Column('varchar', { unique: true })
-    name: string
+export class Ingredient extends Base {
 }
