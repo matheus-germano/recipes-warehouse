@@ -25,7 +25,7 @@ export class Authentication {
       (req as CustomRequest).token = decoded
 
       next()
-    } catch {
+    } catch (e) {
       return res.status(400).json({ error: 'Authentication failed' })
     }
   }

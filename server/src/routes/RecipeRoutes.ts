@@ -11,7 +11,7 @@ const recipeController = RecipeControllerFactory.generate()
 const uuid = new Uuid()
 const authentication = AuthenticationFactory.generate()
 
-recipeRouter.get('/recipes', authentication.isAuthenticated, async (req, res) => await recipeController.findAll(req, res))
-recipeRouter.get('/recipes/:id', uuid.verifyUuid, async (req, res) => await recipeController.findById(req, res))
+recipeRouter.get('/recipes', (req, res, next) => authentication.isAuthenticated(req, res, next), async (req, res) => await recipeController.findAll(req, res))
+recipeRouter.get('/recipes/:id', (req, res, next) => uuid.verifyUuid(req, res, next), async (req, res) => await recipeController.findById(req, res))
 
 export { recipeRouter }
