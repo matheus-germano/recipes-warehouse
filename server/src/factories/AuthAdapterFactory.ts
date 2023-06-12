@@ -4,7 +4,7 @@ import { Factory } from './Factory'
 export class AuthAdapterFactory extends Factory {
   private static _instance: AuthAdapter | null = null
 
-  public static generate () {
+  public static generate (): AuthAdapter {
     if (this._instance !== null) {
       return this._instance
     } else {

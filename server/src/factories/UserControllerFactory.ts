@@ -1,11 +1,12 @@
 import { UserController } from '../controllers/UserController'
+import { Factory } from './Factory'
 import { SignInUseCaseFactory } from './SignInUseCaseFactory'
 import { SignUpUseCaseFactory } from './SignUpUseCaseFactory'
 
-export class UserControllerFactory {
+export class UserControllerFactory extends Factory {
   private static _instance: UserController | null = null
 
-  public static generate () {
+  public static generate (): UserController {
     if (this._instance !== null) {
       return this._instance
     } else {
