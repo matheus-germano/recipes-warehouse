@@ -23,9 +23,9 @@ export class UserController {
   }
 
   async signIn (req: Request<unknown, unknown, ISignIn>, res: Response): Promise<Response> {
-    const { email, password } = req.body
-
     try {
+      const { email, password } = req.body
+
       const token = await this.signInUseCase.execute(email, password)
       return res.status(200).json({ result: { token } })
     } catch {

@@ -5,11 +5,13 @@ import { type FindRecipeByIdUseCase } from '../useCases/recipe/FindRecipeByIdUse
 import { type CreateRecipeUseCase } from '../useCases/recipe/CreateRecipeUseCase'
 import { type Recipe } from '../models/Recipe'
 import { type UpdateRecipeUseCase } from '../useCases/recipe/UpdateRecipeUseCase'
+import { type DeleteRecipeUseCase } from '../useCases/recipe/DeleteRecipeUseCase'
 
 export class RecipeController {
   constructor (
     private readonly createRecipeUseCase: CreateRecipeUseCase,
     private readonly updateRecipeUseCase: UpdateRecipeUseCase,
+    private readonly deleteRecipeUseCase: DeleteRecipeUseCase,
     private readonly findAllRecipesUseCase: FindAllRecipesUseCase,
     private readonly findRecipeByIdUseCase: FindRecipeByIdUseCase
   ) {}
@@ -42,6 +44,18 @@ export class RecipeController {
     }
   }
 
+  async delete (req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params
+
+      await this.deleteRecipeUseCase.execute(id)
+
+      return res.status(200).json({ result: 'Recipe deleted successfully' })
+    } catch {
+      return res.status(500).json({ error: 'Internal server error' })
+    }
+  }
+
   async findAll (req: Request, res: Response): Promise<Response> {
     try {
       const recipes = await this.findAllRecipesUseCase.execute()
@@ -53,9 +67,9 @@ export class RecipeController {
   }
 
   async findById (req: Request, res: Response): Promise<Response> {
-    const { id } = req.params
-
     try {
+      const { id } = req.params
+
       const recipe = await this.findRecipeByIdUseCase.execute(id)
 
       return res.status(200).json(recipe)

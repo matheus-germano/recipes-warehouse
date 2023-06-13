@@ -13,7 +13,8 @@ const authentication = AuthenticationFactory.generate()
 
 recipeRouter.post('/recipes', (req, res, next) => authentication.isAuthenticated(req, res, next), async (req, res) => await recipeController.create(req, res))
 recipeRouter.put('/recipes', (req, res, next) => authentication.isAuthenticated(req, res, next), async (req, res) => await recipeController.update(req, res))
-recipeRouter.get('/recipes', (req, res, next) => authentication.isAuthenticated(req, res, next), async (req, res) => await recipeController.findAll(req, res))
+recipeRouter.delete('/recipes/:id', (req, res, next) => authentication.isAuthenticated(req, res, next), (req, res, next) => uuid.verifyUuid(req, res, next), async (req, res) => await recipeController.delete(req, res))
+recipeRouter.get('/recipes', async (req, res) => await recipeController.findAll(req, res))
 recipeRouter.get('/recipes/:id', (req, res, next) => uuid.verifyUuid(req, res, next), async (req, res) => await recipeController.findById(req, res))
 
 export { recipeRouter }

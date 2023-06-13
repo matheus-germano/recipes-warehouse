@@ -1,5 +1,6 @@
 import { RecipeController } from '../controllers/RecipeController'
 import { CreateRecipeUseCaseFactory } from './CreateRecipeUseCaseFactory'
+import { DeleteRecipeUseCaseFactory } from './DeleteRecipeUseCaseFactory'
 import { Factory } from './Factory'
 import { FindAllRecipesUseCaseFactory } from './FindAllRecipesUseCaseFactory'
 import { FindRecipeByIdUseCaseFactory } from './FindRecipeByIdUseCaseFactory'
@@ -14,10 +15,11 @@ export class RecipeControllerFactory extends Factory {
     } else {
       const createRecipeUseCase = CreateRecipeUseCaseFactory.generate()
       const updateRecipeUseCase = UpdateRecipeUseCaseFactory.generate()
+      const deleteRecipeUseCase = DeleteRecipeUseCaseFactory.generate()
       const findRecipeByIdUseCase = FindRecipeByIdUseCaseFactory.generate()
       const findAllRecipesUseCase = FindAllRecipesUseCaseFactory.generate()
 
-      this._instance = new RecipeController(createRecipeUseCase, updateRecipeUseCase, findAllRecipesUseCase, findRecipeByIdUseCase)
+      this._instance = new RecipeController(createRecipeUseCase, updateRecipeUseCase, deleteRecipeUseCase, findAllRecipesUseCase, findRecipeByIdUseCase)
       return this._instance
     }
   }
