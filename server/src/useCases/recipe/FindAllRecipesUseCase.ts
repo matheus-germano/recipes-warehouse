@@ -1,13 +1,13 @@
-import { config } from '../../../ormconfig'
-import { Recipe } from '../../models/Recipe'
+import { type Recipe } from '../../models/Recipe'
+import { type RecipesRepository } from '../../repositories/RecipesRepository'
 
 export class FindAllRecipesUseCase {
   constructor (
-    private readonly recipesRepository = config.getRepository(Recipe)
+    private readonly recipesRepository: RecipesRepository
   ) {}
 
   async execute (): Promise<Recipe[]> {
-    const recipes = await this.recipesRepository.find()
+    const recipes = await this.recipesRepository.findAll()
 
     return recipes
   }

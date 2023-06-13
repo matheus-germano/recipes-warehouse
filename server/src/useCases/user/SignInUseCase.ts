@@ -1,17 +1,16 @@
-import { config } from '../../../ormconfig'
-import { User } from '../../models/User'
 import { type IAuthAdapter } from '../../protocols/IAuthAdapter'
 import { type ICryptoAdapter } from '../../protocols/ICryptoAdapter'
+import { type UsersRepository } from '../../repositories/UsersRepository'
 
 export class SignInUseCase {
   constructor (
-    private readonly usersRepository = config.getRepository(User),
+    private readonly usersRepository: UsersRepository,
     private readonly cryptoAdapter: ICryptoAdapter,
     private readonly authAdapter: IAuthAdapter
   ) {}
 
   async execute (email: string, password: string): Promise<string> {
-    const userExists = await this.usersRepository.findOne({ where: { email } })
+    const userExists = await this.usersRepository.findByEmail(email)
 
     if (userExists === null) {
       throw new Error('User with this e-mail or password not found')

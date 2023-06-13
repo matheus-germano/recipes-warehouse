@@ -1,15 +1,13 @@
-import { config } from '../../../ormconfig'
-import { Recipe } from '../../models/Recipe'
+import { type Recipe } from '../../models/Recipe'
 import { type IUseCase } from '../../protocols/IUseCase'
+import { type RecipesRepository } from '../../repositories/RecipesRepository'
 
 export class CreateRecipeUseCase implements IUseCase {
   constructor (
-    private readonly recipeRepository = config.getRepository(Recipe)
+    private readonly recipeRepository: RecipesRepository
   ) { }
 
   async execute (recipe: Recipe) {
-    const createdRecipe = this.recipeRepository.create({ ...recipe })
-
-    await this.recipeRepository.save(createdRecipe)
+    await this.recipeRepository.create({ ...recipe })
   }
 }
