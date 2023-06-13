@@ -8,9 +8,17 @@ export class RecipesRepository implements IRecipesRepository {
   ) {}
 
   async create (recipe: Recipe): Promise<void> {
-    const createdRecipe = this.recipesRepository.create({ ...recipe })
+    const createdRecipe = this.recipesRepository.create(recipe)
 
     await this.recipesRepository.save(createdRecipe)
+  }
+
+  async delete (id: string): Promise<void> {
+    await this.recipesRepository.delete({ id })
+  }
+
+  async update (recipe: Recipe): Promise<void> {
+    await this.recipesRepository.update(recipe.id, recipe)
   }
 
   async findAll (): Promise<Recipe[]> {
