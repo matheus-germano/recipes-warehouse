@@ -1,9 +1,14 @@
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { User } from './User'
-import { Base } from './Base'
 
 @Entity()
-export class Recipe extends Base {
+export class Recipe {
+  @PrimaryGeneratedColumn('uuid')
+    id: string
+
+  @Column('varchar', { unique: false })
+    name: string
+
   @Column('uuid')
     creatorId: string
 
