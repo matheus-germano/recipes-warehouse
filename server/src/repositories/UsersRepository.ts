@@ -18,4 +18,10 @@ export class UsersRepository implements IUsersRepository {
 
     return user
   }
+
+  async findOne (id: string): Promise<User | null> {
+    const user = await this.usersRepository.findOne({ where: { id } })
+
+    return user
+  }
 }

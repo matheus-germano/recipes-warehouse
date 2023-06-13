@@ -1,6 +1,7 @@
 import { CreateRecipeUseCase } from '../useCases/recipe/CreateRecipeUseCase'
 import { Factory } from './Factory'
 import { RecipesRepositoryFactory } from './RecipesRepositoryFactory'
+import { UsersRepositoryFactory } from './UsersRepositoryFactory'
 
 export class CreateRecipeUseCaseFactory extends Factory {
   private static _instance: CreateRecipeUseCase | null = null
@@ -10,7 +11,8 @@ export class CreateRecipeUseCaseFactory extends Factory {
       return this._instance
     } else {
       const recipesRepository = RecipesRepositoryFactory.generate()
-      this._instance = new CreateRecipeUseCase(recipesRepository)
+      const usersRepository = UsersRepositoryFactory.generate()
+      this._instance = new CreateRecipeUseCase(recipesRepository, usersRepository)
 
       return this._instance
     }
