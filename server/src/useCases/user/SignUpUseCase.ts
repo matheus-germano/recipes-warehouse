@@ -1,4 +1,4 @@
-import { type User } from '../../models/User'
+import { type IUser } from '../../@types/IUser'
 import { type ICryptoAdapter } from '../../protocols/ICryptoAdapter'
 import { type UsersRepository } from '../../repositories/UsersRepository'
 
@@ -6,9 +6,9 @@ export class SignUpUseCase {
   constructor (
     private readonly usersRepository: UsersRepository,
     private readonly cryptoAdapter: ICryptoAdapter
-  ) {}
+  ) { }
 
-  async execute (user: User) {
+  async execute (user: IUser) {
     const encryptedPassword = await this.cryptoAdapter.encrypt(user.password)
 
     const userAlreadyExists = await this.usersRepository.findByEmail(user.email)

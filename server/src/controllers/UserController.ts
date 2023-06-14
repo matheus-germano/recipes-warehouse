@@ -1,8 +1,8 @@
 import { type Request, type Response } from 'express'
-import { type User } from '../models/User'
-import { type ISignIn } from '../@types/signIn'
+import { type ISignIn } from '../@types/ISignIn'
 import { type SignUpUseCase } from '../useCases/user/SignUpUseCase'
 import { type SignInUseCase } from '../useCases/user/SignInUseCase'
+import { type IUser } from '../@types/IUser'
 
 export class UserController {
   constructor (
@@ -10,10 +10,10 @@ export class UserController {
     private readonly signInUseCase: SignInUseCase
   ) { }
 
-  async signUp (req: Request<unknown, unknown, User>, res: Response): Promise<Response> {
+  async signUp (req: Request<unknown, unknown, IUser>, res: Response): Promise<Response> {
     try {
       const { id, name, email, password, phoneNumber, profileAvatar } = req.body
-      const user: User = { id, name, email, password, phoneNumber, profileAvatar }
+      const user: IUser = { id, name, email, password, phoneNumber, profileAvatar }
 
       await this.signUpUseCase.execute(user)
       return res.status(200).json({ result: 'User created successfully' })

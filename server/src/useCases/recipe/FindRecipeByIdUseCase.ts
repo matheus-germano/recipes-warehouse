@@ -1,4 +1,4 @@
-import { type Recipe } from '../../models/Recipe'
+import { type IRecipe } from '../../@types/IRecipe'
 import { type IUseCase } from '../../protocols/IUseCase'
 import { type RecipesRepository } from '../../repositories/RecipesRepository'
 
@@ -7,7 +7,7 @@ export class FindRecipeByIdUseCase implements IUseCase {
     private readonly recipesRepository: RecipesRepository
   ) { }
 
-  async execute (id: string): Promise<Recipe> {
+  async execute (id: string): Promise<IRecipe> {
     const recipe = await this.recipesRepository.findOne(id)
 
     if (recipe === null) {

@@ -1,4 +1,4 @@
-import { type Recipe } from '../../models/Recipe'
+import { type IRecipe } from '../../@types/IRecipe'
 import { type IUseCase } from '../../protocols/IUseCase'
 import { type RecipesRepository } from '../../repositories/RecipesRepository'
 
@@ -7,7 +7,7 @@ export class UpdateRecipeUseCase implements IUseCase {
     private readonly recipeRepository: RecipesRepository
   ) { }
 
-  async execute (recipe: Recipe) {
+  async execute (recipe: IRecipe) {
     const recipeExists = await this.recipeRepository.findOne(recipe.id)
 
     if (recipeExists === null) {

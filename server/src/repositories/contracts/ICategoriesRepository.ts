@@ -1,8 +1,8 @@
-import { type Category } from '../../models/Category'
+import { type ICategory } from '../../@types/ICategory'
 
 export class ICategoriesRepository {
-  create: (category: Category) => Promise<void>
+  create: (category: ICategory) => Promise<void>
   delete: (id: string) => Promise<void>
-  update: (category: Category) => Promise<void>
-  findAll: () => Promise<Category[]>
+  update: (category: ICategory) => Promise<void>
+  findAll: () => Promise<ICategory[]>
 }

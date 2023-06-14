@@ -1,8 +1,8 @@
-import { type Ingredient } from '../../models/Ingredient'
+import { type IIngredient } from '../../@types/IIngrendient'
 
 export class IIngredientsRepository {
-  create: (ingredient: Ingredient) => Promise<void>
+  create: (ingredient: IIngredient) => Promise<void>
   delete: (id: string) => Promise<void>
-  update: (ingredient: Ingredient) => Promise<void>
-  findAll: () => Promise<Ingredient[]>
+  update: (ingredient: IIngredient) => Promise<void>
+  findAll: () => Promise<IIngredient[]>
 }

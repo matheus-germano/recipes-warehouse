@@ -1,9 +1,9 @@
-import { type Recipe } from '../../models/Recipe'
+import { type IRecipe } from '../../@types/IRecipe'
 
 export interface IRecipesRepository {
-  create: (recipe: Recipe) => Promise<void>
+  create: (recipe: IRecipe) => Promise<void>
   delete: (id: string) => Promise<void>
-  update: (recipe: Recipe) => Promise<void>
-  findAll: () => Promise<Recipe[]>
-  findOne: (id: string) => Promise<Recipe | null>
+  update: (recipe: IRecipe) => Promise<void>
+  findAll: () => Promise<IRecipe[]>
+  findOne: (id: string) => Promise<IRecipe | null>
 }

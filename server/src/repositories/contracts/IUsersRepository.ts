@@ -1,7 +1,7 @@
-import { type User } from '../../models/User'
+import { type IUser } from '../../@types/IUser'
 
 export interface IUsersRepository {
-  create: (user: User) => Promise<void>
-  findByEmail: (email: string) => Promise<User | null>
-  findOne: (id: string) => Promise<User | null>
+  create: (user: IUser) => Promise<void>
+  findByEmail: (email: string) => Promise<IUser | null>
+  findOne: (id: string) => Promise<IUser | null>
 }

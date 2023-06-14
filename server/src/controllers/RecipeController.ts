@@ -3,9 +3,9 @@ import { Request, Response } from 'express'
 import { type FindAllRecipesUseCase } from '../useCases/recipe/FindAllRecipesUseCase'
 import { type FindRecipeByIdUseCase } from '../useCases/recipe/FindRecipeByIdUseCase'
 import { type CreateRecipeUseCase } from '../useCases/recipe/CreateRecipeUseCase'
-import { type Recipe } from '../models/Recipe'
 import { type UpdateRecipeUseCase } from '../useCases/recipe/UpdateRecipeUseCase'
 import { type DeleteRecipeUseCase } from '../useCases/recipe/DeleteRecipeUseCase'
+import { type IRecipe } from '../@types/IRecipe'
 
 export class RecipeController {
   constructor (
@@ -14,12 +14,12 @@ export class RecipeController {
     private readonly deleteRecipeUseCase: DeleteRecipeUseCase,
     private readonly findAllRecipesUseCase: FindAllRecipesUseCase,
     private readonly findRecipeByIdUseCase: FindRecipeByIdUseCase
-  ) {}
+  ) { }
 
-  async create (req: Request<unknown, unknown, Recipe>, res: Response): Promise<Response> {
+  async create (req: Request<unknown, unknown, IRecipe>, res: Response): Promise<Response> {
     try {
-      const { id, name, creatorId, creator, description, preparationMethod, preparationTime, servings, createdAt } = req.body
-      const recipe = { id, name, creatorId, creator, description, preparationMethod, preparationTime, servings, createdAt }
+      const { id, name, creatorId, description, preparationMethod, preparationTime, servings, createdAt } = req.body
+      const recipe: IRecipe = { id, name, creatorId, description, preparationMethod, preparationTime, servings, createdAt }
 
       await this.createRecipeUseCase.execute(recipe)
 
@@ -30,10 +30,10 @@ export class RecipeController {
     }
   }
 
-  async update (req: Request<unknown, unknown, Recipe>, res: Response): Promise<Response> {
+  async update (req: Request<unknown, unknown, IRecipe>, res: Response): Promise<Response> {
     try {
-      const { id, name, creatorId, creator, description, preparationMethod, preparationTime, servings, createdAt } = req.body
-      const recipe = { id, name, creatorId, creator, description, preparationMethod, preparationTime, servings, createdAt }
+      const { id, name, creatorId, description, preparationMethod, preparationTime, servings, createdAt } = req.body
+      const recipe = { id, name, creatorId, description, preparationMethod, preparationTime, servings, createdAt }
 
       await this.updateRecipeUseCase.execute(recipe)
 
