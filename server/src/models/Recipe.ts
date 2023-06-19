@@ -1,5 +1,7 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { User } from './User'
+import { Ingredient } from './Ingredient'
+import { Category } from './Category'
 
 @Entity()
 export class Recipe {
@@ -30,6 +32,13 @@ export class Recipe {
 
   @Column('date')
   private createdAt: Date
+
+  @ManyToOne(() => Category, category => category.recipes)
+    category: Category
+
+  @ManyToMany(() => Ingredient)
+  @JoinTable()
+    ingredients: Ingredient[]
 
   public getId (): string {
     return this.id
