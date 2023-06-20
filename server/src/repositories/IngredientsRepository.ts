@@ -8,9 +8,8 @@ export class IngredientsRepository implements IIngredientsRepository {
     private readonly ingredientsRepository = config.getRepository(Ingredient)
   ) { }
 
-  async create (name: string): Promise<void> {
-    const ingredient = new Ingredient()
-    ingredient.setName(name)
+  async create (ingredientToCreate: Ingredient): Promise<void> {
+    const ingredient = this.ingredientsRepository.create(ingredientToCreate)
 
     await this.ingredientsRepository.save(ingredient)
   }
