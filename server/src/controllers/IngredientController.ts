@@ -20,7 +20,8 @@ export class IngredientController {
       await this.createIngredientUseCase.execute(name)
 
       return res.status(200).json({ result: 'Ingredient created successfully' })
-    } catch {
+    } catch (e) {
+      console.log(e)
       return res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -34,7 +35,8 @@ export class IngredientController {
       await this.updateIngredientUseCase.execute(ingredient)
 
       return res.status(200).json({ result: 'Ingredient updated successfully' })
-    } catch {
+    } catch (e) {
+      console.log(e)
       return res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -46,7 +48,8 @@ export class IngredientController {
       await this.deleteIngredientUseCase.execute(id)
 
       return res.status(200).json({ result: 'Ingredient deleted successfully' })
-    } catch {
+    } catch (e) {
+      console.log(e)
       return res.status(500).json({ error: 'Internal server error' })
     }
   }
@@ -56,7 +59,8 @@ export class IngredientController {
       const ingredients = await this.findAllIngredientsUseCase.execute()
 
       return res.status(200).json(ingredients)
-    } catch {
+    } catch (e) {
+      console.log(e)
       return res.status(500).json({ error: 'Internal server error' })
     }
   }

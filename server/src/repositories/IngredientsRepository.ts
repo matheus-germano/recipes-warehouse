@@ -9,7 +9,8 @@ export class IngredientsRepository implements IIngredientsRepository {
   ) { }
 
   async create (name: string): Promise<void> {
-    const ingredient = this.ingredientsRepository.create(name as any)
+    const ingredient = new Ingredient()
+    ingredient.setName(name)
 
     await this.ingredientsRepository.save(ingredient)
   }
@@ -19,7 +20,7 @@ export class IngredientsRepository implements IIngredientsRepository {
   }
 
   async update (ingredient: IIngredient): Promise<void> {
-    await this.ingredientsRepository.update(ingredient.id, ingredient.name as any)
+    await this.ingredientsRepository.update(ingredient.id, ingredient as any)
   }
 
   async findAll (): Promise<IIngredient[]> {
