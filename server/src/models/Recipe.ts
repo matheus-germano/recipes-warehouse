@@ -33,8 +33,9 @@ export class Recipe {
   @Column('date')
   private createdAt: Date
 
-  @ManyToOne(() => Category, category => category.recipes)
-    category: Category
+  @ManyToMany(() => Category)
+  @JoinTable()
+    categories: Category[]
 
   @ManyToMany(() => Ingredient)
   @JoinTable()

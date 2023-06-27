@@ -1,3 +1,4 @@
+import { type Category } from '../models/Category'
 import { type Ingredient } from '../models/Ingredient'
 
 export class RecipeDTO {
@@ -7,5 +8,5 @@ export class RecipeDTO {
   preparationTime: number
   servings: number
   ingredients: Ingredient[]
-  categoryId: string
+  categories: Category[]
 }
