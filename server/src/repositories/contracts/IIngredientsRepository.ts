@@ -6,4 +6,5 @@ export class IIngredientsRepository {
   delete: (id: string) => Promise<void>
   update: (ingredient: IIngredient) => Promise<void>
   findAll: () => Promise<IIngredient[]>
+  findByIds: (ids: string[]) => Promise<IIngredient[]>
 }

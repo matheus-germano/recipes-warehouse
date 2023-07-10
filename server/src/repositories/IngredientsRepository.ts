@@ -1,3 +1,4 @@
+import { In } from 'typeorm'
 import { config } from '../../ormconfig'
 import { type IIngredient } from '../@types/IIngrendient'
 import { Ingredient } from '../models/Ingredient'
@@ -24,6 +25,12 @@ export class IngredientsRepository implements IIngredientsRepository {
 
   async findAll (): Promise<IIngredient[]> {
     const ingredients = this.ingredientsRepository.find()
+
+    return ingredients as any
+  }
+
+  async findByIds (ids: string[]): Promise<IIngredient[]> {
+    const ingredients = this.ingredientsRepository.findBy({ id: In(ids) } as any)
 
     return ingredients as any
   }

@@ -8,8 +8,8 @@ export class RecipesRepository implements IRecipesRepository {
     private readonly recipesRepository = config.getRepository(Recipe)
   ) { }
 
-  async create (recipe: IRecipe): Promise<void> {
-    const createdRecipe = this.recipesRepository.create(recipe as any)
+  async create (recipe: Recipe): Promise<void> {
+    const createdRecipe = this.recipesRepository.create(recipe)
 
     await this.recipesRepository.save(createdRecipe)
   }

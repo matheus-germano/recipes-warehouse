@@ -6,6 +6,7 @@ import { type CreateRecipeUseCase } from '../useCases/recipe/CreateRecipeUseCase
 import { type UpdateRecipeUseCase } from '../useCases/recipe/UpdateRecipeUseCase'
 import { type DeleteRecipeUseCase } from '../useCases/recipe/DeleteRecipeUseCase'
 import { type IRecipe } from '../@types/IRecipe'
+import { type RecipeCreationDTO } from '../dtos/RecipeCreationDTO'
 
 export class RecipeController {
   constructor (
@@ -16,12 +17,16 @@ export class RecipeController {
     private readonly findRecipeByIdUseCase: FindRecipeByIdUseCase
   ) { }
 
-  async create (req: Request<unknown, unknown, IRecipe>, res: Response): Promise<Response> {
+  async create (req: Request<unknown, unknown, RecipeCreationDTO>, res: Response): Promise<Response> {
     try {
-      const { id, name, creatorId, description, preparationMethod, preparationTime, servings, createdAt } = req.body
-      const recipe: IRecipe = { id, name, creatorId, description, preparationMethod, preparationTime, servings, createdAt }
+      const { creator } = req.headers
+      const { name, description, preparationMethod, preparationTime, servings, ingredients, categories } = req.body
 
-      await this.createRecipeUseCase.execute(recipe)
+      if (typeof creator !== 'string') {
+        return res.status(400).json({ error: 'Invalid creator header' })
+      }
+
+      await this.createRecipeUseCase.execute({ name, description, preparationMethod, preparationTime, servings, ingredients, categories }, creator)
 
       return res.status(200).json({ result: 'Recipe created successfully' })
     } catch (e) {
